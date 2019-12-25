@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap 4 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="main.css">
+
+        <title>Test Page</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center"><h1>Shift Invariance Experiments</h1></div>
+            </div>
+            <div class="row">
+                <div class="col text-center"><p>Description here</p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Select model and layer -->
+                    <div class="form-group">
+                        <label for="selectModel">Select Model:</label>
+                        <select class="form-control" id="selectModel">
+                            <option>Resnet50</option>
+                        </select>
+                        <br>
+                        <label for="selectLayer">Select Layer:</label>
+                        <select class="form-control" id="selectLayer">
+                            <option>fc</option>
+                            <option>class</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- Select dataset and show description -->
+                    <div class="form-group">
+                        <label for="selectData"> Select Dataset:</label>
+                        <select id="selectData" class="form-control">
+                            <option>berry</option>
+                            <option>plane</option>
+                        </select>
+                        <p>A description of the selected dataset goes here</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- Select comparison anchor if applicable -->
+                    <div class="form-group">
+                        <label for="selectAnchor"> Select Anchor Image:</label>
+                        <select class="form-control" id="selectAnchor">
+                            <option>top left</option>
+                            <option>top right</option>
+                            <option>center</option>
+                            <option>botom left</option>
+                            <option>bottom right</option>
+                        </select>
+                        <p>For patch-shifting datasets, "top left" indicates the position of the patch relative to the image. For cropping datasets, "top left" indicates which part of the image was cropped, not the object location.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <!-- Show anchor img and current moused img -->
+                    <img src="data/images/berry/0_0_berry.png" alt="anchor image" class="img-thumbnail" id="anchorImage">
+                    <p>Anchor Image</p>
+                    <img src="data/images/berry/0_0_berry.png" alt="hover image" class="img-thumbnail" id="hoverImage">
+                    <p>Current Image</p>
+                </div>
+                <div class="col-md-5">
+                    <!-- Pytorch pretrained model heatmap-->
+                    <div id="pytorchVis"></div>
+                </div>
+                <div class="col-md-5">
+                    <!-- Antialiased pretrained model heatmap-->
+                    <div id="pytorchAAVis"></div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+    </body>
+</html>
