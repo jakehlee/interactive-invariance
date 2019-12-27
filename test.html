@@ -16,7 +16,46 @@
                 <div class="col text-center"><h1>Shift Invariance Experiments</h1></div>
             </div>
             <div class="row">
-                <div class="col text-center"><p>Description here</p></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h5 class="text-center">Description</h5>
+                    <p>
+                        Modern convolutional neural networks for object image classification have been shown to be very sensitive to the location of the object in the image. This may be due to biases in the training data or the architecture of the model itself. In this experiment, we evaluate such sensitivity by exhaustively shifting an object in an image and comparing features extracted from hidden layers and target class probabilities.
+                    </p>
+                    <h5 class="text-center">Datasets</h5>
+                    <p>
+                        We generated datasets by shifting a transparent patch across a background image, or by cropping a patch from a larger image. The currently available datasets are:
+                        <ul>
+                            <li>
+                                <b>berry:</b> A 100x100 transparent image of a strawberry was shifted with stride 1 across a 224x224 completely white background. Its target class in ILSVRC2012 is <code>949: 'strawberry'</code>.
+                            </li>
+                            <li>
+                                <b>plane:</b> A 224x224 image was cropped from a 356x356 image of a military jet with stride 1. Its target class in ILSVRC2012 is <code>895: 'warplane, military plane'</code>.
+                            </li>
+                        </ul>
+                    </p>
+                    <h5 class="text-center">Models</h5>
+                    <p>
+                        We evaluate pretrained models provided by torchvision <a href="https://pytorch.org/docs/stable/torchvision/models.html">[link]</a> and pretrained antialiased models provided with "Making Convolutional Networks Shift-Invariant Again" by Richard Zhang, published in ICML 2019 <a href="https://github.com/adobe/antialiased-cnns">[link]</a>. Details regarding training are:
+                        <ul>
+                            <li>
+                                <b>torchvision: </b> Models were trained on ILSVRC2012. Data was augmented with random resized cropping <a href="https://github.com/pytorch/vision/blob/d2c763e14efe57e4bf3ebf916ec243ce8ce3315c/torchvision/transforms/transforms.py#L607">[docs]</a> and random horizontal flipping. The training script is available <a href="https://github.com/pytorch/vision/blob/master/references/classification/train.py">[here]</a>.
+                            </li>
+                            <li>
+                                <b>antialiased: </b> Models were trained on ILSVRC2012. Architectures were directly modified from the torchvision models. Data was agumented with random resized cropping <a href="https://github.com/pytorch/vision/blob/d2c763e14efe57e4bf3ebf916ec243ce8ce3315c/torchvision/transforms/transforms.py#L607">[docs]</a> and random horizontal flipping. Training information is available <a href="https://github.com/adobe/antialiased-cnns/blob/master/README_IMAGENET.md">[here]</a>.
+                            </li>
+                        </ul>
+                    </p>
+                    <h5 class="text-center">Method</h5>
+                    <p>
+                        For each image in each dataset...
+                    </p>
+                    <h5 class="text-center">Results</h5>
+                    <p>
+                        The tool below allows for interactive browsing of the results...
+                    </p>
+                </div>
+                <div class="col-md-2"></div>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -76,6 +115,7 @@
                 </div>
                 <div class="col-md-5">
                     <!-- Pytorch pretrained model heatmap-->
+                    <div><h4>Torchvision pretrained model</h4></div>
                     <div id="pytorchVis"></div>
                     <div class="form-group">
                         <label for="plot1range">colormap min: <span id="min1">0.965</span></label>
@@ -84,6 +124,7 @@
                 </div>
                 <div class="col-md-5">
                     <!-- Antialiased pretrained model heatmap-->
+                    <div><h4>Bin-5 AA model (Zhang 2019, ICML)</h4></div>
                     <div id="pytorchAAVis"></div>
                     <div class="form-group">
                         <label for="plot2range">colormap min: <span id="min2">0.965</span></label>
