@@ -13,7 +13,17 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col text-center"><h1>Shift Invariance Experiments</h1></div>
+                <div class="col text-center">
+                    <h1>Shift Invariance Experiments</h1>
+                    <p>
+                        Jake H. Lee, Columbia University
+                        <br>
+                        Dr. Junfeng Yang, Columbia University
+                        <br>
+                        Dr. Atlas Wang, Texas A&M University
+                    </p>
+                </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-2"></div>
@@ -46,13 +56,30 @@
                             </li>
                         </ul>
                     </p>
+                    <h5 class="text-center">Models and Layers</h5>
+                    <p>
+                        The following models and layers are currently available:
+                        <ul>
+                            <li>Resnet50
+                                <ul>
+                                    <li><b>fc: </b> The final fully connected layer, before softmax.</li>
+                                    <li><b>class: </b> Target class probability.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+
                     <h5 class="text-center">Method</h5>
                     <p>
-                        For each image in each dataset...
+                        For each image in each dataset, we extract hidden layer activations (currently, only fully connected layers) as 1-dimensional feature vectors. Then, after selecting an anchor feature, we calculate the cosine similarity between it and all other features. These values are plotted as a heatmap in 2 dimensions (each axis representing the object shifting in each dimension). A fully shift-invariant network would have features that do not change depending on object location (a cosine similarity of 1 across the heatmap).
+                        <br>
+                        For each image in each dataset, we also retrieve the confidence of the corresponding target class. These values are not comparative, and are simply plotted on the heatmap. These values are represented as the "class" layer.
                     </p>
                     <h5 class="text-center">Results</h5>
                     <p>
-                        The tool below allows for interactive browsing of the results...
+                        The tool below allows for interactive browsing of the results. Different models, layers, and datasets can be selected with the dropdown menus. For features extracted from hidden layers, the feature to calculate the cosine similarity against (the "Anchor Image") can also be selected.
+                        <br>
+                        The two heatmaps for each model/layer/dataset/anchor combination is plotted below. The heatmap on the left shows results from the torchvision model, and the heatmap on the right shows results from the antialiased model. Sliders on the bottom can change the minimum value for the colormap (the maximum value is fixed at 1.0). Finally, hovering over the plot shows the corresponding image and value on the left panel.
                     </p>
                 </div>
                 <div class="col-md-2"></div>
@@ -105,8 +132,9 @@
                     <div class="comp-div">
                         <img src="data/images/berry/tl.png" alt="anchor image" class="img-fluid back-image" id="anchorImage">
                     </div>
-                    <p id="metric">cosine similarity = </p>
-                    <span id="cos"></span>
+                    <span id="metric">cosine similarity = </span>
+                    <br>
+                    <span id="cos">1.0</span>
                     <div class="comp-div">
                         <img src="data/images/blank.png" alt="hover image" class="img-fluid back-image" id="hoverImage">
                         <img src="" alt="patch image" class="patch-image" id="patchImage">
