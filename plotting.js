@@ -176,6 +176,10 @@ function updatePlot1() {
             .style("fill", function(d) {return myColor1(d.val)})
             .on("mouseover", mouseover);
         u.transition().duration(500)
+            .attr("x", function(d) {return x2(d.x)})
+            .attr("y", function(d) {return y2(d.y)})
+            .attr("width", width / cols)
+            .attr("height", height / rows)
             .style("fill", function(d) {return myColor1(d.val)});
     });
 }
@@ -226,6 +230,10 @@ function updatePlot2() {
             .style("fill", function(d) {return myColor2(d.val)})
             .on("mouseover", mouseover);
         u.transition().duration(500)
+            .attr("x", function(d) {return x2(d.x)})
+            .attr("y", function(d) {return y2(d.y)})
+            .attr("width", width / cols)
+            .attr("height", height / rows)
             .style("fill", function(d) {return myColor2(d.val)});
         
     });
