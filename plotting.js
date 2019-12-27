@@ -164,9 +164,9 @@ function updatePlot1() {
             }
         }
 
-        var u = svg1.selectAll()
+        var u = svg1.selectAll("rect")
             .data(data, function(d) {return d.x+":"+d.y;});
-        
+        u.exit().remove();
         u.enter()
             .append("rect")
             .attr("x", function(d) {return x1(d.x)})
@@ -175,7 +175,8 @@ function updatePlot1() {
             .attr("height", height / rows)
             .style("fill", function(d) {return myColor1(d.val)})
             .on("mouseover", mouseover);
-        u.exit().remove();
+        u.transition().duration(500)
+            .style("fill", function(d) {return myColor1(d.val)});
     });
 }
 
@@ -213,9 +214,9 @@ function updatePlot2() {
             }
         }
 
-        var u = svg2.selectAll()
+        var u = svg2.selectAll("rect")
             .data(data, function(d) {return d.x+":"+d.y;});
-
+        u.exit().remove();
         u.enter()
             .append("rect")
             .attr("x", function(d) {return x2(d.x)})
@@ -224,7 +225,9 @@ function updatePlot2() {
             .attr("height", height / rows)
             .style("fill", function(d) {return myColor2(d.val)})
             .on("mouseover", mouseover);
-        u.exit().remove();
+        u.transition().duration(500)
+            .style("fill", function(d) {return myColor2(d.val)});
+        
     });
 }
 
