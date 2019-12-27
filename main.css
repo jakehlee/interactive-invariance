@@ -1,12 +1,15 @@
 .comp-div {
 	position: relative;
+	overflow: hidden;
+	outline-style: solid;
 }
 
 .back-image {
-	outline-style: solid;
+
 }
 
 .patch-image {
 	position: absolute;
 	z-index: 1;
+	clip-path: "content-box";
 }

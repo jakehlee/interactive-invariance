@@ -8,6 +8,9 @@ var max = 1.0
 var rows = 125
 var cols = 125
 
+var csvroot = "data/csv/";
+var imgroot = "data/images/";
+
 
 // Plotting vars
 var margin = {top: 30, right: 30, bottom: 30, left: 30},
@@ -32,34 +35,7 @@ var svg2 = d3.select("#pytorchAAVis")
 .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
-
-var x1 = d3.scaleLinear()
-    .range([ 0, width ])
-    .domain([0, cols]);
-svg1.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x1))
-
-var y1 = d3.scaleLinear()
-    .range([ height, 0 ])
-    .domain([rows, 0]);
-svg1.append("g")
-    .call(d3.axisLeft(y1));
-
-var x2 = d3.scaleLinear()
-    .range([ 0, width ])
-    .domain([0, cols]);
-svg2.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x1))
-
-var y2 = d3.scaleLinear()
-    .range([ height, 0 ])
-    .domain([rows, 0]);
-svg2.append("g")
-    .call(d3.axisLeft(y1));
-
+// Color Initialization
 
 var myColor1 = d3.scaleSequential()
     .domain([1.0, min])
@@ -69,8 +45,78 @@ var myColor2 = d3.scaleSequential()
     .domain([1.0, min])
     .interpolator(d3.interpolateYlOrRd);
 
-function updateDatasetSize() {
-    path = csvroot+model+"-"+layer+"-"+dataset+"-"+anchor+"-d3.csv";
+// Plot 1 x-axis
+
+var x1 = d3.scaleLinear()
+    .range([ 0, width ])
+    .domain([0, cols]);
+
+var x1_axis = d3.axisBottom()
+    .scale(x1);
+
+svg1.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .attr("class", "x")
+    .call(x1_axis);
+
+// Plot 1 y-axis
+
+var y1 = d3.scaleLinear()
+    .range([ height, 0 ])
+    .domain([rows, 0]);
+
+var y1_axis = d3.axisLeft()
+    .scale(y1);
+
+svg1.append("g")
+    .attr("class", "y")
+    .call(y1_axis);
+
+// Plot 2 x-axis
+
+var x2 = d3.scaleLinear()
+    .range([ 0, width ])
+    .domain([0, cols]);
+
+var x2_axis = d3.axisBottom()
+    .scale(x2);
+
+svg2.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .attr("class", "x")
+    .call(x2_axis);
+
+// Plot 2 y-axis
+
+var y2 = d3.scaleLinear()
+    .range([ height, 0 ])
+    .domain([rows, 0]);
+
+var y2_axis = d3.axisLeft()
+    .scale(y2);
+
+svg2.append("g")
+    .attr("class", "y")
+    .call(y2_axis);
+
+function updateAxes() {
+    x1.domain([0, cols]);
+    y1.domain([rows, 0]);
+    x2.domain([0, cols]);
+    y2.domain([rows, 0]);
+
+    svg1.select(".x")
+        .transition()
+            .call(x1_axis);
+    svg1.select(".y")
+        .transition()
+            .call(y1_axis);
+    svg2.select(".x")
+        .transition()
+            .call(x2_axis);
+    svg2.select(".y")
+        .transition()
+            .call(y2_axis);
 }
 
 function updateColorRange1(range_min) {
@@ -86,27 +132,42 @@ function updateColorRange2(range_min) {
 }
 
 function updatePlot1() {
-    csvroot = "data/csv/";
-    imgroot = "data/images/";
-    path1 = csvroot+model+"-"+layer+"-"+dataset+"-"+anchor+"-d3.csv";
+    var path1 = csvroot+model+"-"+layer+"-"+dataset+"-"+anchor+"-d3.csv";
     d3.csv(path1).then(function(data) {
         var mouseover = function(d) {
             document.getElementById("cos").innerHTML = d.val;
             if (dataset == "berry") {
-                document.getElementById("hoverImage").src = imgroot + "blank.png";
-                cw = document.getElementById("hoverImage").clientWidth;
-                ch = document.getElementById("hoverImage").clientHeight;
-                document.getElementById("patchImage").src = imgroot + "berry_transparent.png";
-                document.getElementById("patchImage").style.top = (cw / 224.0) * d.y + "px";
-                document.getElementById("patchImage").style.left = (ch / 224.0) * d.x + "px";
-                document.getElementById("patchImage").style.maxHeight = (100.0 / 224.0) * ch + "px";
-                document.getElementById("patchImage").style.maxWidth = (100.0 / 224.0) * cw + "px";
+                // Patch shifting
+                var hi = document.getElementById("hoverImage")
+                var pi = document.getElementById("patchImage")
+                hi.src = imgroot + "blank.png";
+                cw = hi.clientWidth;
+                ch = hi.clientHeight;
+                pi.src = imgroot + "berry_transparent.png";
+                pi.style.top = (cw / 224.0) * d.y + "px";
+                pi.style.left = (ch / 224.0) * d.x + "px";
+                pi.style.maxHeight = (100.0 / 224.0) * ch + "px";
+                pi.style.maxWidth = (100.0 / 224.0) * cw + "px";
+            }
+            if (dataset == "plane") {
+                // Cropping
+                var hi = document.getElementById("hoverImage")
+                var pi = document.getElementById("patchImage")
+                hi.src = imgroot + "blank.png";
+                cw = hi.clientWidth;
+                ch = hi.clientHeight;
+                pi.src = imgroot + "plane.png";
+                pi.style.top = -(cw / 224.0) * d.y + "px";
+                pi.style.left = -(ch / 224.0) * d.x + "px";
+                pi.style.maxHeight = (356.0 / 224.0) * ch + "px";
+                pi.style.maxWidth = (356.0 / 224.0) * cw + "px";
             }
         }
 
-        svg1.selectAll()
-            .data(data, function(d) {return d.x+":"+d.y;})
-            .enter()
+        var u = svg1.selectAll()
+            .data(data, function(d) {return d.x+":"+d.y;});
+        
+        u.enter()
             .append("rect")
             .attr("x", function(d) {return x1(d.x)})
             .attr("y", function(d) {return y1(d.y)})
@@ -114,32 +175,48 @@ function updatePlot1() {
             .attr("height", height / rows)
             .style("fill", function(d) {return myColor1(d.val)})
             .on("mouseover", mouseover);
+        u.exit().remove();
     });
 }
 
 
 function updatePlot2() {
-    csvroot = "data/csv/";
-    imgroot = "data/images/";
-    path2 = csvroot+model+"AA-"+layer+"-"+dataset+"-"+anchor+"-d3.csv";
+    var path2 = csvroot+model+"AA-"+layer+"-"+dataset+"-"+anchor+"-d3.csv";
     d3.csv(path2).then(function(data) {
         var mouseover = function(d) {
             document.getElementById("cos").innerHTML = d.val;
             if (dataset == "berry") {
-                document.getElementById("hoverImage").src = imgroot + "blank.png";
-                cw = document.getElementById("hoverImage").clientWidth;
-                ch = document.getElementById("hoverImage").clientHeight;
-                document.getElementById("patchImage").src = imgroot + "berry_transparent.png";
-                document.getElementById("patchImage").style.top = (cw / 224.0) * d.y + "px";
-                document.getElementById("patchImage").style.left = (ch / 224.0) * d.x + "px";
-                document.getElementById("patchImage").style.maxHeight = (100.0 / 224.0) * ch + "px";
-                document.getElementById("patchImage").style.maxWidth = (100.0 / 224.0) * cw + "px";
+                // Patch shifting
+                var hi = document.getElementById("hoverImage")
+                var pi = document.getElementById("patchImage")
+                hi.src = imgroot + "blank.png";
+                cw = hi.clientWidth;
+                ch = hi.clientHeight;
+                pi.src = imgroot + "berry_transparent.png";
+                pi.style.top = (cw / 224.0) * d.y + "px";
+                pi.style.left = (ch / 224.0) * d.x + "px";
+                pi.style.maxHeight = (100.0 / 224.0) * ch + "px";
+                pi.style.maxWidth = (100.0 / 224.0) * cw + "px";
+            }
+            if (dataset == "plane") {
+                // Cropping
+                var hi = document.getElementById("hoverImage")
+                var pi = document.getElementById("patchImage")
+                hi.src = imgroot + "blank.png";
+                cw = hi.clientWidth;
+                ch = hi.clientHeight;
+                pi.src = imgroot + "plane.png";
+                pi.style.top = -(cw / 224.0) * d.y + "px";
+                pi.style.left = -(ch / 224.0) * d.x + "px";
+                pi.style.maxHeight = (356.0 / 224.0) * ch + "px";
+                pi.style.maxWidth = (356.0 / 224.0) * cw + "px";
             }
         }
 
-        svg2.selectAll()
-            .data(data, function(d) {return d.x+":"+d.y;})
-            .enter()
+        var u = svg2.selectAll()
+            .data(data, function(d) {return d.x+":"+d.y;});
+
+        u.enter()
             .append("rect")
             .attr("x", function(d) {return x2(d.x)})
             .attr("y", function(d) {return y2(d.y)})
@@ -147,14 +224,12 @@ function updatePlot2() {
             .attr("height", height / rows)
             .style("fill", function(d) {return myColor2(d.val)})
             .on("mouseover", mouseover);
+        u.exit().remove();
     });
 }
 
-
-
 // UI hooks
 window.onload = function() {
-
     // progbar
     function setProg(perc) {
         document.getElementById("globalProg").style.width = perc + "%";
@@ -215,13 +290,29 @@ window.onload = function() {
 
     // dataset dropdown
     document.getElementById("selectData").onchange = function() {
-        imgroot = "data/images/";
-
         dataset = this.value;
 
-        document.getElementById("anchorImage").src = imgroot+dataset+"/"+anchor+".png";
-        updatePlot1();
-        updatePlot2();
+        if(layer != "class") {
+            document.getElementById("anchorImage").src = imgroot+dataset+"/"+anchor+".png";
+        }
+
+        var dataPromise = new Promise(function(resolve, reject) {
+            var csvroot = "data/csv/";
+            var path = csvroot+model+"-"+layer+"-"+dataset+"-"+anchor+"-d3.csv";
+            d3.csv(path).then(function(data) {
+                rows = d3.max(data, function(d) {return +d.y}) + 1;
+                cols = d3.max(data, function(d) {return +d.x}) + 1;
+                resolve(0);
+            });
+            
+        });
+
+        dataPromise.then(function(result) {
+            updateAxes();
+            updatePlot1();
+            updatePlot2();
+        });
+        
     }
 
     // anchor dropdown

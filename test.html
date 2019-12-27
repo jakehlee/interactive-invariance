@@ -53,7 +53,7 @@
                             <option value="tl">top left</option>
                             <option value="tr">top right</option>
                             <option value="c">center</option>
-                            <option value="bl">botom left</option>
+                            <option value="bl">bottom left</option>
                             <option value="br">bottom right</option>
                         </select>
                         <p>For patch-shifting datasets, "top left" indicates the position of the patch relative to the image. For cropping datasets, "top left" indicates which part of the image was cropped, not the object location.</p>
@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <!-- Show anchor img and current moused img -->
-                    <div>
+                    <div class="comp-div">
                         <img src="data/images/berry/tl.png" alt="anchor image" class="img-fluid back-image" id="anchorImage">
                     </div>
                     <p id="metric">cosine similarity = </p>
@@ -71,8 +71,8 @@
                     <div class="comp-div">
                         <img src="data/images/blank.png" alt="hover image" class="img-fluid back-image" id="hoverImage">
                         <img src="" alt="patch image" class="patch-image" id="patchImage">
-                        <p>(simulated with css)</p>
                     </div>
+                    <p>(simulated with css)</p>
                 </div>
                 <div class="col-md-5">
                     <!-- Pytorch pretrained model heatmap-->
