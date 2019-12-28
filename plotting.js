@@ -254,6 +254,7 @@ function updateLayerDropdown(newModel) {
             layerDropdown.options.add(opt);
         }
         layerDropdown.value = resnet50Layers[0];
+        layer = resnet50Layers[0];
     }
     if(newModel == "alexnet") {
         for(i = 0; i < alexnetLayers.length; i++) {
@@ -263,6 +264,7 @@ function updateLayerDropdown(newModel) {
             layerDropdown.options.add(opt);
         }
         layerDropdown.value = alexnetLayers[0];
+        layer = alexnetLayers[0];
     }
 }
 
