@@ -11,6 +11,10 @@ var cols = 125
 var csvroot = "data/csv/";
 var imgroot = "data/images/";
 
+// Dataset specific layers
+var resnet50Layers = ["fc", "class"];
+var alexnetLayers = ["fc6", "fc6relu", "fc7", "fc7relu", "fc", "class"];
+
 
 // Plotting vars
 var margin = {top: 30, right: 30, bottom: 30, left: 30},
@@ -239,6 +243,29 @@ function updatePlot2() {
     });
 }
 
+function updateLayerDropdown(newModel) {
+    var layerDropdown = document.getElementById("selectLayer");
+    layerDropdown.options.length = 0;
+    if(newModel == "resnet50") {
+        for(i = 0; i < resnet50Layers.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = resnet50Layers[i];
+            opt.text = resnet50Layers[i];
+            layerDropdown.options.add(opt);
+        }
+        layerDropdown.value = resnet50Layers[0];
+    }
+    if(newModel == "alexnet") {
+        for(i = 0; i < alexnetLayers.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = alexnetLayers[i];
+            opt.text = alexnetLayers[i];
+            layerDropdown.options.add(opt);
+        }
+        layerDropdown.value = alexnetLayers[0];
+    }
+}
+
 // UI hooks
 window.onload = function() {
     // progbar
@@ -276,6 +303,7 @@ window.onload = function() {
     // model dropdown
     document.getElementById("selectModel").onchange = function() {
         model = this.value;
+        updateLayerDropdown(this.value);
         updatePlot1();
         updatePlot2();
     }
