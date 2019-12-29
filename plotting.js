@@ -14,6 +14,8 @@ var imgroot = "data/images/";
 // Dataset specific layers
 var resnet50Layers = ["fc", "class"];
 var alexnetLayers = ["fc6", "fc6relu", "fc7", "fc7relu", "fc", "class"];
+var vgg16Layers = ["fc6", "fc6relu", "fc7", "fc7relu", "fc", "class"];
+
 
 
 // Plotting vars
@@ -265,6 +267,16 @@ function updateLayerDropdown(newModel) {
         }
         layerDropdown.value = alexnetLayers[0];
         layer = alexnetLayers[0];
+    }
+    if(newModel == "vgg16") {
+        for(i = 0; i < vgg16Layers.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = vgg16Layers[i];
+            opt.text = vgg16Layers[i];
+            layerDropdown.options.add(opt);
+        }
+        layerDropdown.value = vgg16Layers[0];
+        layer = vgg16Layers[0];
     }
 }
 

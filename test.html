@@ -70,6 +70,16 @@
                                     <li><b>class: </b> Target class probability.</li>
                                 </ul>
                             </li>
+                            <li>VGG16
+                                <ul>
+                                    <li><b>fc6: </b> The first fully connected layer, before ReLU.</li>
+                                    <li><b>fc6relu: </b> The fc6 layer after the ReLU activation function.</li>
+                                    <li><b>fc7: </b> The penultimate fully connected layer, before ReLU.</li>
+                                    <li><b>fc7relu: </b> The fc7 layer after the ReLU activation function.</li>
+                                    <li><b>fc: </b> The final fully connected layer, before softmax.</li>
+                                    <li><b>class: </b> Target class probability.</li>
+                                </ul>
+                            </li>
                             <li>Resnet50
                                 <ul>
                                     <li><b>fc: </b> The final fully connected layer, before softmax.</li>
@@ -102,6 +112,7 @@
                         <select class="form-control" id="selectModel">
                             <option value="resnet50">Resnet50</option>
                             <option value="alexnet">Alexnet</option>
+                            <option value="vgg16">VGG16</option>
                         </select>
                         <br>
                         <label for="selectLayer">Select Layer:</label>
