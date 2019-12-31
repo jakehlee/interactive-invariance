@@ -13,6 +13,7 @@ var imgroot = "data/images/";
 
 // Dataset specific layers
 var resnet50Layers = ["fc", "class"];
+var mobilev2Layers = ["fc", "class"];
 var alexnetLayers = ["fc6", "fc6relu", "fc7", "fc7relu", "fc", "class"];
 var vgg16Layers = ["fc6", "fc6relu", "fc7", "fc7relu", "fc", "class"];
 
@@ -277,6 +278,16 @@ function updateLayerDropdown(newModel) {
         }
         layerDropdown.value = vgg16Layers[0];
         layer = vgg16Layers[0];
+    }
+    if(newModel == "mobilev2") {
+        for(i = 0; i < mobilev2Layers.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = mobilev2Layers[i];
+            opt.text = mobilev2Layers[i];
+            layerDropdown.options.add(opt);
+        }
+        layerDropdown.value = mobilev2Layers[0];
+        layer = mobilev2Layers[0];
     }
 }
 
