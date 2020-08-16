@@ -1,2 +1,2 @@
-# shift-variance-website
-Website to display results of shift variance experiments
+# Visualizing Shift Invariance
+Website to display results of shift invariance experiments
