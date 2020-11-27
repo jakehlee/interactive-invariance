@@ -28,7 +28,11 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
+                    <a href="https://jakehlee.github.io/visualize-invariance" class="btn btn-primary btn-lg">See our Paper Website!</a>
                     <h5 class="text-center">Description</h5>
+                    <p>
+                        <i> tl;dr provided below </i>
+                    </p>
                     <p>
                         Modern convolutional neural networks for object image classification have been shown to be very sensitive to the location of the object in the image. This may be due to biases in the training data or the architecture of the model itself. In this experiment, we evaluate such sensitivity by exhaustively shifting an object in an image and comparing features extracted from hidden layers and target class probabilities.
                     </p>
@@ -107,6 +111,9 @@
                         <br>
                         The two heatmaps for each model/layer/dataset/anchor combination is plotted below. The heatmap on the left shows results from the torchvision model, and the heatmap on the right shows results from the antialiased model. Sliders on the bottom can change the minimum value for the colormap (the maximum value is fixed at 1.0). Finally, hovering over the plot shows the corresponding image and value on the left panel.
                     </p>
+                    <h5 class="text-center"> tl;dr </h5>
+                    <p> 
+                        Convolutional neural networks can classify images as different objects, but they break if you move the image around a little. Pick a popular classification model that people use as benchmarks in the top left dropdown. Pick betwen a strawberry and a plane in the top middle dropdown. Ignore the top right dropdown. Select the "class" layer on the bottom left dropdown. Hover over the left or right heatmap to move the object, and see how the model's confidence that the object is a berry or plane changes from 0 to 1. Use the slider at the bottom to change the range of the heatmap color. The model of the left heatmap is really bad at recognizing moved objects but it's the one everyone uses. The model of the right heatmap tries to fix it, and it's pretty good at it. Please read the paper for full details and context.
                 </div>
                 <div class="col-md-2"></div>
             </div>
