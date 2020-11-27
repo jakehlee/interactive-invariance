@@ -28,7 +28,9 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <a href="https://jakehlee.github.io/visualize-invariance" class="btn btn-primary btn-lg">See our Paper Website!</a>
+                    <p class="text-center">
+                        <a href="https://jakehlee.github.io/visualize-invariance" class="btn btn-primary btn-lg">See our Paper Website!</a>
+                    </p>
                     <h5 class="text-center">Description</h5>
                     <p>
                         <i> tl;dr provided below </i>
@@ -113,7 +115,7 @@
                     </p>
                     <h5 class="text-center"> tl;dr </h5>
                     <p> 
-                        Convolutional neural networks can classify images as different objects, but they break if you move the image around a little. Pick a popular classification model that people use as benchmarks in the top left dropdown. Pick betwen a strawberry and a plane in the top middle dropdown. Ignore the top right dropdown. Select the "class" layer on the bottom left dropdown. Hover over the left or right heatmap to move the object, and see how the model's confidence that the object is a berry or plane changes from 0 to 1. Use the slider at the bottom to change the range of the heatmap color. The model of the left heatmap is really bad at recognizing moved objects but it's the one everyone uses. The model of the right heatmap tries to fix it, and it's pretty good at it. Please read the paper for full details and context.
+                        Convolutional neural networks can classify images as different objects, but they break if you move the image around a little. Pick a popular classification model that people use as benchmarks in the top left dropdown. Pick betwen a strawberry and a plane in the top middle dropdown. Ignore the top right dropdown. Select the "class" layer on the bottom left dropdown. Hover over the left or right heatmap to move the object, and see how the model's confidence that the object is a berry or plane changes from 0 to 1 (Try ResNet50 & plane). Use the slider at the bottom to change the range of the heatmap color. The model of the left heatmap is inconsistent at recognizing moved objects but it's the one everyone uses. The model of the right heatmap improves the consistency with antialiasing. Please read the paper for full details and context.
                 </div>
                 <div class="col-md-2"></div>
             </div>
